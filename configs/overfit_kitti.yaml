@@ -31,7 +31,7 @@ datasets:
         path: ['/data/datasets/KITTI_tiny']
         split: ['kitti_tiny.txt']
         depth_type: ['velodyne']
-        repeat: [1000]
+        repeat: [10]
     validation:
         dataset: ['KITTI']
         path: ['/data/datasets/KITTI_tiny']

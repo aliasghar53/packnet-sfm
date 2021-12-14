@@ -108,13 +108,13 @@ RUN aws configure set default.s3.max_concurrent_requests 100 && \
     aws configure set default.s3.max_queue_size 10000
 
 # Install Minkowski Engine
-ENV TORCH_CUDA_ARCH_LIST=Volta;Turing;Kepler+Tesla
-RUN pip install ninja
-RUN apt-get update && apt-get install -y libopenblas-dev
-WORKDIR /workspace
-RUN git clone https://github.com/NVIDIA/MinkowskiEngine.git
-RUN cd /workspace/MinkowskiEngine && \
-    python setup.py install --force_cuda
+#ENV TORCH_CUDA_ARCH_LIST=Volta;Turing;Kepler+Tesla
+#RUN pip install ninja
+#RUN apt-get update && apt-get install -y libopenblas-dev
+#WORKDIR /workspace
+#RUN git clone https://github.com/NVIDIA/MinkowskiEngine.git
+#RUN cd /workspace/MinkowskiEngine && \
+#    python setup.py install --force_cuda
 
 # Add Tini (cf. https://github.com/jupyter/docker-stacks)
 ENV TINI_VERSION v0.19.0
