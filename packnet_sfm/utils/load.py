@@ -132,9 +132,15 @@ def load_network(network, path, prefixes=''):
     prefixes = make_list(prefixes)
     # If path is a string
     if is_str(path):
-        saved_state_dict = torch.load(path, map_location='cpu')['state_dict']
-        if path.endswith('.pth.tar'):
-            saved_state_dict = backwards_state_dict(saved_state_dict)
+        saved_state_dict = torch.load(path, map_location='cpu')
+        if "state_dict" in saved_state_dict:
+            saved_state_dict = saved_state_dict['state_dict']
+            if path.endswith('.pth.tar'):
+                saved_state_dict = backwards_state_dict(saved_state_dict)
+        else:
+            network.load_state_dict(saved_state_dict)
+            print0(pcolor("###### Pretrained model loaded successfully", "cyan", attrs=["bold", "dark"]))
+            return network
     # If state dict is already provided
     else:
         saved_state_dict = path

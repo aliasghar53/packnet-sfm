@@ -115,6 +115,7 @@ cfg.model.depth_net.name = ''               # Depth network name
 cfg.model.depth_net.checkpoint_path = ''    # Depth checkpoint filepath
 cfg.model.depth_net.version = ''            # Depth network version
 cfg.model.depth_net.dropout = 0.0           # Depth network dropout
+cfg.model.depth_net.is_midas = False        # True if using MIDAS depth model
 ########################################################################################################################
 ### MODEL.POSE_NET
 ########################################################################################################################
@@ -135,6 +136,7 @@ cfg.datasets.augmentation.image_shape = ()                      # Image shape
 cfg.datasets.augmentation.jittering = (0.2, 0.2, 0.2, 0.05)     # Color jittering values
 cfg.datasets.augmentation.crop_train_borders = ()               # Crop training borders
 cfg.datasets.augmentation.crop_eval_borders = ()                # Crop evaluation borders
+cfg.datasets.augmentation.is_midas = False                      # repeated for ease of use with midas
 ########################################################################################################################
 ### DATASETS.TRAIN
 ########################################################################################################################

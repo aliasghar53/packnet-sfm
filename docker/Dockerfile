@@ -130,6 +130,9 @@ ENV PYTHONPATH="/workspace/dgp:$PYTHONPATH"
 # Override DGP wandb with required version
 RUN pip install wandb==0.8.21 pyquaternion
 
+# install timm required by midas depth model
+RUN pip install timm
+
 # Expose Port for jupyter (8888)
 EXPOSE 8888
 

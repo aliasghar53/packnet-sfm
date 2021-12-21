@@ -19,6 +19,7 @@ from packnet_sfm.utils.reduce import all_reduce_metrics, reduce_dict, \
     create_dict, average_loss_and_metrics
 from packnet_sfm.utils.save import save_depth
 from packnet_sfm.models.model_utils import stack_batch
+from packnet_sfm.datasets.midas.train_transforms import get_midas_transform
 
 
 class ModelWrapper(torch.nn.Module):
@@ -290,16 +291,16 @@ class ModelWrapper(torch.nn.Module):
 
     def evaluate_depth(self, batch):
         """Evaluate batch to produce depth metrics."""
-        # Get predicted depth
+        # Get predicted depth        
         inv_depths = self.model(batch)['inv_depths']
-        depth = inv2depth(inv_depths)
+        depth = inv2depth(inv_depths[0])
         # Post-process predicted depth
         batch['rgb'] = flip_lr(batch['rgb'])
         if 'input_depth' in batch:
             batch['input_depth'] = flip_lr(batch['input_depth'])
         inv_depths_flipped = self.model(batch)['inv_depths']
         inv_depth_pp = post_process_inv_depth(
-            inv_depths, inv_depths_flipped, method='mean')
+            inv_depths[0], inv_depths_flipped[0], method='mean')
         depth_pp = inv2depth(inv_depth_pp)
         batch['rgb'] = flip_lr(batch['rgb'])
         # Calculate predicted metrics
@@ -501,7 +502,7 @@ def setup_dataset(config, mode, requirements, **kwargs):
     dataset_args = {
         'back_context': config.back_context,
         'forward_context': config.forward_context,
-        'data_transform': get_transforms(mode, **kwargs)
+        'data_transform': get_midas_transform(**kwargs) if kwargs["is_midas"] else get_transforms(mode, **kwargs)
     }
 
     # Loop over all datasets

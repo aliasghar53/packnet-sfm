@@ -11,7 +11,6 @@ from packnet_sfm.utils.misc import filter_dict
 class SfmModel(BaseModel):
     """
     Model class encapsulating a pose and depth networks.
-
     Parameters
     ----------
     depth_net : nn.Module
@@ -53,14 +52,12 @@ class SfmModel(BaseModel):
     def depth_net_flipping(self, batch, flip):
         """
         Runs depth net with the option of flipping
-
         Parameters
         ----------
         batch : dict
             Input batch
         flip : bool
             True if the flip is happening
-
         Returns
         -------
         output : dict
@@ -98,7 +95,6 @@ class SfmModel(BaseModel):
     def forward(self, batch, return_logs=False, force_flip=False):
         """
         Processes a batch.
-
         Parameters
         ----------
         batch : dict
@@ -107,7 +103,6 @@ class SfmModel(BaseModel):
             True if logs are stored
         force_flip : bool
             If true, force batch flipping for inverse depth calculation
-
         Returns
         -------
         output : dict
