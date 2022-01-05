@@ -1,5 +1,5 @@
 arch:
-    max_epochs: 2
+    max_epochs: 1
 model:
     name: 'SelfSupModel'
     optimizer:
@@ -29,7 +29,7 @@ model:
         upsample_depth_maps: False
 datasets:
     augmentation:
-        image_shape: (128, 128)
+        image_shape: (384, 384)
         is_midas: True
     train:
         batch_size: 1

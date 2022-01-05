@@ -139,6 +139,10 @@ def load_network(network, path, prefixes=''):
                 saved_state_dict = backwards_state_dict(saved_state_dict)
         else:
             network.load_state_dict(saved_state_dict)
+            for name, param in network.named_parameters():
+                if not "scratch.output_conv" in name:
+                    param.requires_grad = False
+
             print0(pcolor("###### Pretrained model loaded successfully", "cyan", attrs=["bold", "dark"]))
             return network
     # If state dict is already provided

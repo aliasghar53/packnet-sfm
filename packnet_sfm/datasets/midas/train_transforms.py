@@ -219,8 +219,8 @@ class PrepareForNet(object):
 
     def __call__(self, sample):
         
-        image = np.transpose(sample["rgb"], (2, 0, 1))
-        sample["rgb"] = np.ascontiguousarray(image).astype(np.float32)
+        # image = np.transpose(sample["rgb"], (2, 0, 1))
+        sample["rgb"] = np.ascontiguousarray(sample["rgb"]).astype(np.float32)
         
         if "rgb_context" in sample:
             sample["rgb_context"] = [np.ascontiguousarray(image).astype(np.float32)
