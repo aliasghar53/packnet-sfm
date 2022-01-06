@@ -100,8 +100,6 @@ class DPTDepthModel(DPT):
             nn.Identity(),
         )
 
-        self.counter = 0
-
         super().__init__(head, **kwargs)
 
         if path is not None:
@@ -109,8 +107,6 @@ class DPTDepthModel(DPT):
 
     def forward(self, rgb):
         self.channels_last = False     
-        torch.save(rgb, "/data/tensors/"+str(self.counter)+".pt")
-        self.counter += 1
         output = super().forward(rgb)
         return {"inv_depths": [output]}
 

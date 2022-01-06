@@ -39,7 +39,7 @@ datasets:
         repeat: [1]
         split: ['{:07}']
     validation:
-        batch_size: 8
+        batch_size: 2
         num_workers: 1
         dataset: ['Image']
         path: ['/data/datasets/scene1/val']
