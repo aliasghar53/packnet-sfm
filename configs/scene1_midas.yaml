@@ -1,0 +1,55 @@
+arch:
+    max_epochs: 100
+model:
+    name: 'SelfSupModel'
+    optimizer:
+        name: 'Adam'
+        depth:
+            lr: 0.0002
+        pose:
+            lr: 0.0005
+    scheduler:
+        name: 'StepLR'
+        step_size: 30
+        gamma: 0.5
+    depth_net:
+        name: 'DPTDepthModel'
+        version: ''
+        checkpoint_path: "/workspace/packnet-sfm/weights/dpt_large-midas-2f21e586.pt"
+        is_midas: True
+    pose_net:
+        name: 'PoseNet'
+        version: ''
+    params:
+        crop: 'garg'
+        min_depth: 0.0
+        max_depth: 80.0
+    loss:
+        num_scales: 1
+        upsample_depth_maps: False
+datasets:
+    augmentation:
+        image_shape: (384, 384)
+        is_midas: True
+    train:
+        batch_size: 8
+        num_workers: 1
+        dataset: ['Image']
+        path: ['/data/datasets/scene1/train']
+        repeat: [1]
+        split: ['{:07}']
+    validation:
+        batch_size: 8
+        num_workers: 1
+        dataset: ['Image']
+        path: ['/data/datasets/scene1/val']
+        split: ["{:07}"]
+    test:
+        batch_size: 1
+        num_workers: 1
+        dataset: ['Image']
+        path: ['/data/datasets/scene1/val']
+        split: ["{:07}"]
+checkpoint:
+    filepath: /data/results
+    save_top_k: -1
